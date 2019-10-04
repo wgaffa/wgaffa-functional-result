@@ -3,6 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Wgaffa.Functional</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>wgaffa</Authors>
+    <Company>Wgaffa</Company>
+    <Description>A simple Result/Either monad type</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright />
+    <PackageProjectUrl>https://github.com/wgaffa/wgaffa-functional-result</PackageProjectUrl>
+    <PackageTags>functional</PackageTags>
   </PropertyGroup>
 
 </Project>
