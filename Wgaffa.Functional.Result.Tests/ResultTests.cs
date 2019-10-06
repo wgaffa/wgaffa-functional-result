@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
+using System;
 
-namespace Wgaffa.Functional.Result.Tests
+namespace Wgaffa.Functional.Tests
 {
     [TestFixture]
     public class ResultTests
@@ -60,11 +61,7 @@ namespace Wgaffa.Functional.Result.Tests
             var hasRun = false;
 
             var result = Result<int, string>.Return(() => failure, () => 42, () => "some error message")
-                .OnSuccess(x =>
-                {
-                    hasRun = true;
-                    return Result<int, string>.Ok(x);
-                });
+                .OnSuccess(x => hasRun = true);
 
             return hasRun;
         }
@@ -76,11 +73,7 @@ namespace Wgaffa.Functional.Result.Tests
             var hasRun = false;
 
             var result = Result<int, string>.Return(() => failure, () => 42, () => "some error message")
-                .OnError(x =>
-                {
-                    hasRun = true;
-                    return Result<int, string>.Error(x);
-                });
+                .OnError(x => hasRun = true);
 
             return hasRun;
         }
@@ -92,13 +85,54 @@ namespace Wgaffa.Functional.Result.Tests
             var hasRun = false;
 
             var result = Result<int, string>.Return(() => failure, () => 42, () => "some error message")
-                .OnBoth(() =>
-                {
-                    hasRun = true;
-                    return Result<int, string>.Ok(3);
-                });
+                .OnBoth(() => hasRun = true);
 
             return hasRun;
+        }
+
+        private Result<int, string> Calculate(int x, int y)
+        {
+            if (x == y)
+                return Result<int, string>.Error("cannot be the same");
+
+            return Result<int, string>.Ok(x + y);
+        }
+
+        [Test]
+        public void Chaining_ShouldUseAppropiateCalls()
+        {
+            var hasChanged = false;
+            var result = Calculate(3, 2)
+                .OnSuccess(x => Calculate(5, x))
+                .OnSuccess(x => hasChanged = true)
+                .OnSuccess(x => Calculate(x, 2))
+                .OnSuccess(x => Calculate(3, x));
+
+            Assert.That(hasChanged, Is.False);
+        }
+
+        [Test]
+        public void Chaining_ShouldTransformToDifferentResult()
+        {
+            var checkResult = string.Empty;
+            var result = Calculate(3, 2)
+                .OnSuccess(x => Calculate(7, x))
+                .Map(x => x.ToString())
+                .OnSuccess(x => checkResult = x);
+
+            Assert.That(checkResult, Is.EqualTo("12"));
+        }
+
+        [Test]
+        public void Chaining_ShouldFail_GivenError()
+        {
+            var hasChanged = false;
+            var result = Calculate(3, 2)
+                .OnSuccess(x => Calculate(x, 5))
+                .OnError(e => hasChanged = true)
+                .OnSuccess(x => hasChanged = false);
+
+            Assert.That(hasChanged, Is.True);
         }
     }
 }
