@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Wgaffa.Functional
 {
@@ -16,10 +14,29 @@ namespace Wgaffa.Functional
             _error = error;
         }
 
+        public override Result<T1, E> Map<T1>(Func<T, T1> map)
+        {
+            return new Error<T1, E>(_error);
+        }
+
+        public override Result<T, E> OnBoth(Action functor)
+        {
+            functor();
+            return this;
+        }
+
         public override Result<T, E> OnBoth(Func<Result<T, E>> functor) => functor();
 
-        public override Result<T, E> OnError(Func<E, Result<T, E>> functor) => functor(_error);
+        public override Result<T, E> OnError(Action<E> functor)
+        {
+            functor(_error);
+            return this;
+        }
 
-        public override Result<T, E> OnSuccess(Func<T, Result<T, E>> functor) => this;
+        public override Result<T, E1> OnError<E1>(Func<E, Result<T, E1>> functor) => functor(_error);
+
+        public override Result<T, E> OnSuccess(Action<T> functor) => this;
+
+        public override Result<T1, E> OnSuccess<T1>(Func<T, Result<T1, E>> functor) => new Error<T1, E>(_error);
     }
 }

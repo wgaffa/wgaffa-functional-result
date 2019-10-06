@@ -15,8 +15,13 @@ namespace Wgaffa.Functional
             return predicate() ? Return(ifTrue()) : Return(ifFalse());
         }
 
-        public abstract Result<T, E> OnSuccess(Func<T, Result<T, E>> functor);
-        public abstract Result<T, E> OnError(Func<E, Result<T, E>> functor);
+        public abstract Result<T, E> OnSuccess(Action<T> functor);
+        public abstract Result<T1, E> OnSuccess<T1>(Func<T, Result<T1, E>> functor);
+        public abstract Result<T, E> OnError(Action<E> functor);
+        public abstract Result<T, E1> OnError<E1>(Func<E, Result<T, E1>> functor);
+        public abstract Result<T, E> OnBoth(Action functor);
         public abstract Result<T, E> OnBoth(Func<Result<T, E>> functor);
+
+        public abstract Result<T1, E> Map<T1>(Func<T, T1> map);
     }
 }

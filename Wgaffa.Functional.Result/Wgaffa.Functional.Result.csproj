@@ -9,7 +9,9 @@
     <Description>A simple Result/Either monad type</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/wgaffa/wgaffa-functional-result</PackageProjectUrl>
-    <PackageTags>functional</PackageTags>
+    <PackageTags>functional error</PackageTags>
+    <Version>1.1.0</Version>
+    <PackageReleaseNotes>Adding Map and some overloaded methods to Result</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
