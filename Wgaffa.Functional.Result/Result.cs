@@ -23,5 +23,7 @@ namespace Wgaffa.Functional
         public abstract Result<T, E> OnBoth(Func<Result<T, E>> functor);
 
         public abstract Result<T1, E> Map<T1>(Func<T, T1> map);
+
+        public static implicit operator bool(Result<T, E> result) => typeof(Success<T, E>) == result.GetType();
     }
 }

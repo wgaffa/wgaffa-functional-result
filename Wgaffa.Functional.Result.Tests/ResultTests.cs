@@ -134,5 +134,13 @@ namespace Wgaffa.Functional.Tests
 
             Assert.That(hasChanged, Is.True);
         }
+
+        [Test]
+        public void ImplicitConversion_ShouldReturnCorrect()
+        {
+            var result = Calculate(3, 2) == true;
+
+            Assert.That(result, Is.True);
+        }
     }
 }
