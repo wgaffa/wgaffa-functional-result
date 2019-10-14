@@ -10,7 +10,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/wgaffa/wgaffa-functional-result</PackageProjectUrl>
     <PackageTags>functional error</PackageTags>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <PackageReleaseNotes>Adding Map and some overloaded methods to Result</PackageReleaseNotes>
   </PropertyGroup>
 
