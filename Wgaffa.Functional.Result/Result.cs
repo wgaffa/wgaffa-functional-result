@@ -39,4 +39,19 @@ namespace Wgaffa.Functional
         public abstract Result OnBoth(Action functor);
         public abstract Result OnBoth(Func<Result> functor);
     }
+
+    public abstract class Result<T>
+    {
+        public static Result<T> Ok(T value) => new Success<T>(value);
+        public static Result<T> Error() => new Error<T>();
+
+        public static implicit operator Result<T>(T value) => new Success<T>(value);
+
+        public abstract Result<T> OnSuccess(Action<T> functor);
+        public abstract Result<T> OnSuccess(Func<T, Result<T>> functor);
+        public abstract Result<T> OnError(Action functor);
+        public abstract Result<T> OnError(Func<Result<T>> functor);
+        public abstract Result<T> OnBoth(Action functor);
+        public abstract Result<T> OnBoth(Func<Result<T>> functor);
+    }
 }

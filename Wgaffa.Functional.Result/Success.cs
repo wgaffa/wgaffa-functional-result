@@ -62,4 +62,37 @@ namespace Wgaffa.Functional
 
         public override Result OnSuccess(Func<Result> functor) => functor();
     }
+
+    public class Success<T> : Result<T>
+    {
+        private T _content;
+
+        public Success(T value)
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            _content = value;
+        }
+
+        public override Result<T> OnBoth(Action functor)
+        {
+            functor();
+            return this;
+        }
+
+        public override Result<T> OnBoth(Func<Result<T>> functor) => functor();
+
+        public override Result<T> OnError(Action functor) => this;
+
+        public override Result<T> OnError(Func<Result<T>> functor) => this;
+
+        public override Result<T> OnSuccess(Action<T> functor)
+        {
+            functor(_content);
+            return this;
+        }
+
+        public override Result<T> OnSuccess(Func<T, Result<T>> functor) => functor(_content);
+    }
 }
