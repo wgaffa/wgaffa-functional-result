@@ -26,4 +26,17 @@ namespace Wgaffa.Functional
 
         public static implicit operator bool(Result<T, E> result) => typeof(Success<T, E>) == result.GetType();
     }
+
+    public abstract class Result
+    {
+        public static Result Ok() => new Success();
+        public static Result Error() => new Error();
+
+        public abstract Result OnSuccess(Action functor);
+        public abstract Result OnSuccess(Func<Result> functor);
+        public abstract Result OnError(Action functor);
+        public abstract Result OnError(Func<Result> functor);
+        public abstract Result OnBoth(Action functor);
+        public abstract Result OnBoth(Func<Result> functor);
+    }
 }

@@ -39,4 +39,27 @@ namespace Wgaffa.Functional
 
         public override Result<T1, E> OnSuccess<T1>(Func<T, Result<T1, E>> functor) => new Error<T1, E>(_error);
     }
+
+    public class Error : Result
+    {
+        public override Result OnBoth(Action functor)
+        {
+            functor();
+            return this;
+        }
+
+        public override Result OnBoth(Func<Result> functor) => functor();
+
+        public override Result OnError(Action functor)
+        {
+            functor();
+            return this;
+        }
+
+        public override Result OnError(Func<Result> functor) => functor();
+
+        public override Result OnSuccess(Action functor) => this;
+
+        public override Result OnSuccess(Func<Result> functor) => this;
+    }
 }
