@@ -142,5 +142,21 @@ namespace Wgaffa.Functional.Tests
 
             Assert.That(result, Is.True);
         }
+
+        [Test]
+        public void ImpliciticConversion_ShouldReturnSuccess_GivenSuccessType()
+        {
+            Result<int, string> result = 256;
+
+            Assert.That(result, Is.TypeOf<Success<int, string>>());
+        }
+
+        [Test]
+        public void ImplicitConversion_ShouldReturnError_GivenErrorType()
+        {
+            Result<int, string> result = "Some Error message";
+
+            Assert.That(result, Is.TypeOf<Error<int, string>>());
+        }
     }
 }

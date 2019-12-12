@@ -10,10 +10,8 @@ namespace Wgaffa.Functional
         public static Result<T, E> Error(E value) => new Error<T, E>(value);
         public static Result<T, E> Return(T value) => new Success<T, E>(value);
         public static Result<T, E> Return(E value) => new Error<T, E>(value);
-        public static Result<T, E> Return(Func<bool> predicate, Func<T> ifTrue, Func<E> ifFalse)
-        {
-            return predicate() ? Return(ifTrue()) : Return(ifFalse());
-        }
+        public static Result<T, E> Return(Func<bool> predicate, Func<T> ifTrue, Func<E> ifFalse) 
+            => predicate() ? Ok(ifTrue()) : Error(ifFalse());
 
         public abstract Result<T, E> OnSuccess(Action<T> functor);
         public abstract Result<T1, E> OnSuccess<T1>(Func<T, Result<T1, E>> functor);
@@ -25,6 +23,9 @@ namespace Wgaffa.Functional
         public abstract Result<T1, E> Map<T1>(Func<T, T1> map);
 
         public static implicit operator bool(Result<T, E> result) => typeof(Success<T, E>) == result.GetType();
+
+        public static implicit operator Result<T, E>(T value) => new Success<T, E>(value);
+        public static implicit operator Result<T, E>(E value) => new Error<T, E>(value);
     }
 
     public abstract class Result
