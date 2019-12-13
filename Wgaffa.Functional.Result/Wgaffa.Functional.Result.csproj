@@ -10,12 +10,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/wgaffa/wgaffa-functional-result</PackageProjectUrl>
     <PackageTags>functional error</PackageTags>
-    <Version>1.2.0</Version>
-    <PackageReleaseNotes>Add two new Result types, a non generic and a one generic parameter type.
-
-The non generic Result type can be use instead of a simple boolean and use it's OnSuccess/Error methods.
-
-The one generic Result type can be used when you want to return a value or a failure but don't care about the error message or type.</PackageReleaseNotes>
+    <Version>1.2.1</Version>
+    <PackageReleaseNotes>Result&lt;T, E&gt; can now do implicit conversions from type T or E</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
