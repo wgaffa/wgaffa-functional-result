@@ -38,6 +38,8 @@ namespace Wgaffa.Functional
         public override Result<T, E> OnSuccess(Action<T> functor) => this;
 
         public override Result<T1, E> OnSuccess<T1>(Func<T, Result<T1, E>> functor) => new Error<T1, E>(_error);
+
+        public override T1 Reduce<T1>(Func<T, T1> _, Func<E, T1> ifError) => ifError(_error);
     }
 
     public class Error : Result
@@ -61,6 +63,8 @@ namespace Wgaffa.Functional
         public override Result OnSuccess(Action functor) => this;
 
         public override Result OnSuccess(Func<Result> functor) => this;
+
+        public override T Reduce<T>(Func<T> ifSuccess, Func<T> ifError) => ifError();
     }
 
     public class Error<T> : Result<T>
@@ -84,5 +88,7 @@ namespace Wgaffa.Functional
         public override Result<T> OnSuccess(Action<T> functor) => this;
 
         public override Result<T> OnSuccess(Func<T, Result<T>> functor) => this;
+
+        public override T1 Reduce<T1>(Func<T, T1> ifSuccess, Func<T1> ifError) => ifError();
     }
 }
