@@ -37,5 +37,6 @@ jobs:
     - name: Package
       run: |
         VERSION=$(date +%s)
+        dotnet build --configuration Release
         dotnet pack --configuration Release --version-suffix ${VERSION}
         dotnet nuget push "Wgaffa.Functional.Result/bin/Release/Wgaffa.Functional.Result*${VERSION}.nupkg" --skip-duplicate
