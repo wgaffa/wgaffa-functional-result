@@ -10,8 +10,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/wgaffa/wgaffa-functional-result</PackageProjectUrl>
     <PackageTags>functional error</PackageTags>
-    <Version>1.2.1</Version>
-    <PackageReleaseNotes>Result&lt;T, E&gt; can now do implicit conversions from type T or E</PackageReleaseNotes>
+    <VersionPrefix>1.2.2</VersionPrefix>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
