@@ -158,5 +158,29 @@ namespace Wgaffa.Functional.Tests
 
             Assert.That(result, Is.TypeOf<Error<int, string>>());
         }
+
+        [Test]
+        public void Reduce_ShouldReturnSuccess_GivenNoErrors()
+        {
+            var result = Result<int, string>.Ok(5);
+
+            var resultString = result.Reduce(
+                x => x.ToString(),
+                x => x);
+
+            Assert.That(resultString, Is.EqualTo("5"));
+        }
+
+        [Test]
+        public void Reduce_ShouldReturnString_GivenError()
+        {
+            var result = Result<int, string>.Error("error");
+
+            var resultString = result.Reduce(
+                x => x.ToString(),
+                x => x);
+
+            Assert.That(resultString, Is.EqualTo("error"));
+        }
     }
 }
