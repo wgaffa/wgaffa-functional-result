@@ -9,6 +9,7 @@
     <Description>A simple Result/Either monad type</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/wgaffa/wgaffa-functional-result</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/wgaffa/wgaffa-functional-result</RepositoryUrl>
     <PackageTags>functional error</PackageTags>
     <VersionPrefix>1.2.2</VersionPrefix>
     <PackageReleaseNotes></PackageReleaseNotes>
